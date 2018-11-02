@@ -1,0 +1,64 @@
+# Spring Boot configuration
+spring:
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+
+# JPA properties
+  jpa:
+    properties:
+      hibernate:
+        temp:
+# Disable feature detection by this undocumented parameter. Check the org.hibernate.engine.jdbc.internal.JdbcServiceImpl.configure method for more details.
+          use_jdbc_metadata_defaults: false
+        id:
+          new_generator_mappings: true
+        hql:
+          bulk_id_strategy: org.hibernate.hql.spi.id.inline.InlineIdsInClauseBulkIdStrategy
+        enable_lazy_load_no_trans: true
+    hibernate:
+      ddl-auto: update
+#    database-platform: org.hibernate.dialect.PostgreSQLDialect
+# Because detection is disabled you have to set correct dialect by hand.
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    show-sql: false
+
+
+# Database
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gym_db
+    username: postgres
+    password: welcome1
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-timeout: 60000
+      maximum-pool-size: 5
+  flyway:
+    baselineOnMigrate: true
+    enabled: true
+
+# Cron config
+#         +-------------------- second (0 - 59)
+#         | +----------------- minute (0 - 59)
+#         | | +-------------- hour (0 - 23)
+#         | | | +----------- day of month (1 - 31)
+#         | | | | +-------- month (1 - 12)
+#         | | | | | +----- day of week (0 - 6) (Sunday=0 or 7)
+#         | | | | | |
+#         | | | | | |
+#         * * * * * *
+cron:
+  timezone: UTC
+
+# Logger configuration
+logging:
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+  level:
+    org.springframework: INFO
+    org.hibernate: DEBUG
+
+# Server configuration
+server:
+  port: 8080
+  sessionTimeout: 30
