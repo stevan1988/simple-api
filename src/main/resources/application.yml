@@ -15,7 +15,7 @@ spring:
           new_generator_mappings: true
         hql:
           bulk_id_strategy: org.hibernate.hql.spi.id.inline.InlineIdsInClauseBulkIdStrategy
-        enable_lazy_load_no_trans: true
+        enable_lazy_load_no_trans: trueEnableGlobalMethodSecurity
     hibernate:
       ddl-auto: update
 #    database-platform: org.hibernate.dialect.PostgreSQLDialect
@@ -62,3 +62,8 @@ logging:
 server:
   port: 8080
   sessionTimeout: 30
+
+## JWT security
+app:
+  jwtSecret: JWTSuperSecretKey
+  jwtExpirationInMs: 604800000
